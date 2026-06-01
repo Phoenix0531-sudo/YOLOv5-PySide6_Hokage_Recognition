@@ -1,0 +1,36 @@
+from PySide6.QtWidgets import QCheckBox, QComboBox, QDoubleSpinBox, QFormLayout, QSpinBox, QWidget
+
+
+class SettingsPanel(QWidget):
+    def __init__(self) -> None:
+        super().__init__()
+        self.backend = QComboBox()
+        self.backend.addItems(["mock", "ultralytics", "yolov5_legacy"])
+        self.device = QComboBox()
+        self.device.addItems(["auto", "cpu", "cuda"])
+        self.language = QComboBox()
+        self.language.addItems(["zh-CN", "en-US"])
+        self.theme = QComboBox()
+        self.theme.addItems(["dark", "light", "system"])
+        self.conf = QDoubleSpinBox()
+        self.conf.setRange(0, 1)
+        self.conf.setSingleStep(0.05)
+        self.conf.setValue(0.25)
+        self.iou = QDoubleSpinBox()
+        self.iou.setRange(0, 1)
+        self.iou.setSingleStep(0.05)
+        self.iou.setValue(0.45)
+        self.image_size = QSpinBox()
+        self.image_size.setRange(32, 4096)
+        self.image_size.setValue(640)
+        self.enable_llm = QCheckBox("Enable LLM Agent")
+
+        layout = QFormLayout(self)
+        layout.addRow("Backend", self.backend)
+        layout.addRow("Device", self.device)
+        layout.addRow("Language", self.language)
+        layout.addRow("Theme", self.theme)
+        layout.addRow("Confidence", self.conf)
+        layout.addRow("IoU", self.iou)
+        layout.addRow("Image size", self.image_size)
+        layout.addRow(self.enable_llm)

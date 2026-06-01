@@ -1,9 +1,16 @@
+x-build-args: &build-args
+  PYTHON_IMAGE: ${PYTHON_IMAGE:-python:3.12-slim-bookworm}
+  DEBIAN_MIRROR: ${DEBIAN_MIRROR:-}
+  DEBIAN_SECURITY_MIRROR: ${DEBIAN_SECURITY_MIRROR:-}
+
 services:
   test:
     build:
       context: .
+      target: test
+      args: *build-args
     image: hokage-vision-agent:dev
-    command: pytest
+    command: pytest tests/unit tests/integration
     volumes:
       - .:/workspace
     environment:
@@ -15,18 +22,23 @@ services:
   gui-test:
     build:
       context: .
-    image: hokage-vision-agent:dev
-    command: sh -lc "apt-get update && apt-get install -y --no-install-recommends libegl1 libgl1 libglib2.0-0 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xinput0 xvfb && python -m pip install -e '.[gui]' && pytest tests/gui"
+      target: gui-test
+      args: *build-args
+    image: hokage-vision-agent:gui
+    command: pytest tests/gui
     volumes:
       - .:/workspace
     environment:
       HOKAGE_VISION_BACKEND: mock
       PYTHONPATH: /workspace/src
       QT_QPA_PLATFORM: offscreen
+      QT_API: pyside6
 
   api:
     build:
       context: .
+      target: test
+      args: *build-args
     image: hokage-vision-agent:dev
     command: sh -lc "python -m pip install -e '.[api]' && hokage-vision --help"
     ports:
@@ -40,6 +52,8 @@ services:
   package:
     build:
       context: .
+      target: test
+      args: *build-args
     image: hokage-vision-agent:dev
     command: sh -lc "python -m pip install -e '.[package]' && python -m build"
     volumes:
@@ -48,8 +62,10 @@ services:
   desktop-build:
     build:
       context: .
-    image: hokage-vision-agent:dev
-    command: sh -lc "apt-get update && apt-get install -y --no-install-recommends libegl1 libgl1 libglib2.0-0 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xinput0 xvfb && python -m pip install -e '.[desktop-build,gui]' && python scripts/build_desktop.py"
+      target: gui-test
+      args: *build-args
+    image: hokage-vision-agent:gui
+    command: sh -lc "python -m pip install -e '.[desktop-build]' && python scripts/build_desktop.py"
     volumes:
       - .:/workspace
     environment:
@@ -58,6 +74,8 @@ services:
   docs:
     build:
       context: .
+      target: test
+      args: *build-args
     image: hokage-vision-agent:dev
     command: sh -lc "python -m pip install -e '.[docs]' && mkdocs build"
     volumes:

@@ -228,8 +228,10 @@ def agent_run(task: str) -> None:
 
 @app.command("gui")
 def gui() -> None:
-    """Launch the desktop GUI. Placeholder until Phase 10."""
-    _echo_json({"status": "placeholder", "app": "gui"})
+    """Launch the desktop GUI."""
+    from hokage_vision.ui.app import run_app
+
+    raise typer.Exit(run_app())
 
 
 @app.command("api")
