@@ -12,7 +12,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 7: Training skeleton and smoke training
 - [x] Phase 8: Model registry, evaluation, and comparison
 - [x] Phase 9: Ultralytics and legacy YOLOv5 backends
-- [ ] Phase 10: Modern PySide6 desktop interface
+- [x] Phase 10: Modern PySide6 desktop interface
 - [ ] Phase 11: FastAPI service
 - [ ] Phase 12: Python package build workflow
 - [ ] Phase 13: Desktop executable build workflow
@@ -120,3 +120,13 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Updated model docs with backend guidance and no-hardcoded-weight statement.
 - Added lightweight backend tests that do not download weights or require GPU.
 - Verified mock flow still passes, missing weight errors are readable, and Ruff passes.
+
+### Phase 10
+
+- Added a PySide6 desktop shell with Overview, Image Detection, Video Detection, Batch Detection, Agent Assistant, Settings, and About pages.
+- Added dark/light theme helpers, basic zh-CN/en-US UI text mapping, result table, statistics panel, settings controls, and worker-thread scaffolding.
+- Wired image detection and Agent Chat panels to the shared mock-backed inference and rule-based agent layers.
+- Added headless pytest-qt GUI smoke tests for the main window, image detection panel, settings panel, and agent chat panel.
+- Reworked Docker GUI testing around `python:3.12-slim-bookworm`, separate test/gui dependency stages, BuildKit apt/pip caches, and optional Debian mirror build args.
+- Added Docker-specific requirement files without replacing the legacy YOLOv5 `requirements.txt`.
+- Verified GUI tests, targeted Ruff checks, and normal Docker package import.

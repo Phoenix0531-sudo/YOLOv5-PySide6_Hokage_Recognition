@@ -8,6 +8,7 @@ nav:
   - Getting Started: getting-started.md
   - Docker: docker.md
   - CLI: usage/cli.md
+  - GUI: usage/gui.md
   - Agent: usage/agent.md
   - Training: usage/training.md
   - Data Governance: data-governance.md

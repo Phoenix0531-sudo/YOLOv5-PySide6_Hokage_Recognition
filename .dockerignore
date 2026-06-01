@@ -1,15 +1,26 @@
 # Repo-specific DockerIgnore -------------------------------------------------------------------------------------------
 .git
+.github
 .cache
+.pytest_cache
+.ruff_cache
 .idea
 runs
 output
 coco
 storage.googleapis.com
+datasets/
+legacy/old_project/
+readme_images/
+*.gif
 
 data/samples/*
+data/raw/*
+data/interim/*
+data/processed/*
 **/results*.csv
 *.jpg
+!examples/images/*.jpg
 
 # Neural Network weights -----------------------------------------------------------------------------------------------
 **/*.pt

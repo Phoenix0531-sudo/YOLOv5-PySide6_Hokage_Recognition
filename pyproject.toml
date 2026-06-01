@@ -33,7 +33,7 @@ dependencies = [
 
 [project.optional-dependencies]
 gui = [
-  "PySide6>=6.7",
+  "PySide6-Essentials>=6.7",
   "pytest-qt>=4.4",
 ]
 api = [
@@ -67,7 +67,7 @@ docs = [
   "mkdocs-material>=9.5",
 ]
 all = [
-  "PySide6>=6.7",
+  "PySide6-Essentials>=6.7",
   "pytest-qt>=4.4",
   "fastapi>=0.111",
   "uvicorn[standard]>=0.30",
