@@ -192,5 +192,6 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Identify demo gaps that make the project look unfinished.
 - [x] Wire real backend selection into CLI and API entrypoints without weakening the mock default.
 - [x] Replace remaining weak GUI About copy with product-grade Chinese and English lines.
+- [x] Replace placeholder Batch and Video GUI pages with runnable service-backed panels.
 - [x] Run local visible CLI/API/GUI checks.
 - [x] Commit and push the optimization pass.
